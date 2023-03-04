@@ -1,0 +1,15 @@
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\bin\Debug\net6.0\otus-hw-30.exe
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\bin\Debug\net6.0\otus-hw-30.deps.json
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\bin\Debug\net6.0\otus-hw-30.runtimeconfig.json
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\bin\Debug\net6.0\otus-hw-30.dll
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\bin\Debug\net6.0\otus-hw-30.pdb
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.csproj.AssemblyReference.cache
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.AssemblyInfoInputs.cache
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.AssemblyInfo.cs
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.csproj.CoreCompileInputs.cache
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.dll
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\refint\otus-hw-30.dll
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.pdb
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\otus-hw-30.genruntimeconfig.cache
+C:\Users\o.rovenskiy\source\repos\otus-hw-30\otus-hw-30\obj\Debug\net6.0\ref\otus-hw-30.dll
