@@ -1,61 +1,83 @@
 ﻿using System.Net;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 
 
-// Откуда будем качать
-   string remoteUri = "https://kartinkin.net/pics/uploads/posts/2022-09/1662498989_19-kartinkin-net-p-kot-maikun-koti-21.jpg";
-// Как назовем файл на диске
-   string fileName = "bigimage.jpg";
+var siteList = new List<string>()
+{
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg",
+"https://fikiwiki.com/uploads/posts/2022-02/1645000472_12-fikiwiki-com-p-kartinki-krasivie-na-telefon-zhivie-oboi-13.jpg"
 
-//2. Создайте экземпляр этого класса
+};
 
-ImageDownloader myObj = new ImageDownloader(remoteUri, fileName);
 
-//  подпишитесь на эти события
+var fileList = new List<string>()
+{
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    "6.jpg",
+    "7.jpg",
+    "8.jpg",
+    "9.jpg",
+    "10.jpg"
+   };
 
-myObj.ImageStarted += DisplayMessage;
 
-myObj.ImageCompleted += DisplayMessage;
+var taskList = new List<Task>();
 
-//3. вызовите скачивание большой картинки
 
-Console.WriteLine("Качаю \"{0}\" из \"{1}\" .......\n\n", fileName, remoteUri);
+CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+CancellationToken token = cancelTokenSource.Token;
 
-// myObj.Download();  использовалось в п. 1-3
+int i = 0;
 
-// var isDounloaded = myObj.Download().Result;
+foreach (var site in siteList)
+{
+    string fileName = fileList[i];
+    var task = Task.Run(async () => {new ImageDownloader(site, fileName).Download();}, token);
+    taskList.Add(task);
+    
+    i++;
+}
 
-bool ff = false;
-
-Task.Run(() => ff = myObj.Download().Result);
-
-Console.WriteLine("Успешно скачал \"{0}\" из \"{1}\"", fileName, remoteUri);
-
-// обработчик событий, метод с такой же сигнатурой как и делегат
-void DisplayMessage(string message) => Console.WriteLine(message);
-
-//Console.WriteLine("Нажмите любую клавишу для завершения программы");
-//Console.ReadKey();
-
-Console.WriteLine("Нажмите клавишу A для выхода или любую другую клавишу для проверки статуса скачивания");
+Console.WriteLine("Нажмите клавишу A для прекращения загрузки или любую другую клавишу для проверки статуса скачивания");
 
 var choise = Console.ReadKey().KeyChar;
+
 
 if (choise.Equals('A'))
     
 {
-    System.Environment.Exit(1);
+    cancelTokenSource.Cancel();
+    Console.WriteLine("Скачивание отменено");
+    Console.ReadKey();
 }
 
 else
 {
-   
-    Console.WriteLine("Файл скачен     " + ff);
+    i = 0;
+
+    foreach (var task in taskList)
+    {
+        string fileName = fileList[i];
+        Console.WriteLine($"Файл {fileName} скачен     " + task.IsCompleted);
+        i++;
+    }
     Console.ReadKey();
+
 }
-
-
-// 1. Напишите класс ImageDownloader. В этом классе должен быть метод Download, который скачивает картинку из интернета
 
 public class ImageDownloader : WebClient
 
@@ -70,26 +92,11 @@ public class ImageDownloader : WebClient
     public string remoteUri { get; set; }
     public string fileName { get; set; }
 
-    // Добавьте события: в классе ImageDownloader в начале скачивания картинки и в конце скачивания
-
-    public event Action<string> ImageStarted;
+        public event Action<string> ImageStarted;
     public event Action<string> ImageCompleted;
 
-    // метод синхронный
-    /*
-        public void Download ()
-        {
-            ImageStarted?.Invoke("Скачивание файла началось");
-            DownloadFile (remoteUri, fileName);
-            ImageCompleted?.Invoke("Скачивание файла закончилось");
 
-        }
-
-     */
-
-    // метод асинхронный
-
-    public async Task<bool> Download()
+    public async Task Download()
     {
         ImageStarted?.Invoke("Скачивание файла началось");
 
@@ -98,11 +105,6 @@ public class ImageDownloader : WebClient
         await taskDownload;
 
         ImageCompleted?.Invoke("Скачивание файла закончилось");
-
-        return taskDownload.IsCompleted;
-       
-
+      
     }
-
-
 }
